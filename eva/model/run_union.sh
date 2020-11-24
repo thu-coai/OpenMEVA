@@ -1,0 +1,1 @@
+python3 -u ./run_union.py your_output_dir your_model_path

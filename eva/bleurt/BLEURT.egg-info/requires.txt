@@ -1,0 +1,5 @@
+pandas
+numpy
+scipy
+tensorflow>=1.15
+tf-slim>=1.1
