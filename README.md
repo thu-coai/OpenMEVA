@@ -1,25 +1,22 @@
 # OpenEVA
-```
-cd ./OpenEVA
-pip install -e ./
-```
+![](https://img.shields.io/github/last-commit/thu-coai/PaperForONLG?color=blue) ![](https://img.shields.io/badge/PRs-Welcome-red) 
 
-
+Contributed by [Jian Guan](https://jianguanthu.github.io/), [Zhexin Zhang](https://github.com/nonstopfor)
 
 OpenEVA is a benchmark for evaluating open-ended story generation (Please refer to the [Paper List](https://github.com/thu-coai/PaperForONLG) for more information about **O**pen-e**N**ded **L**anguage **G**eneration tasks). Besides, OpenEVA also provides an open-source and extensible toolkit for metric implementation, evaluation, comparison, and analysis, as well as data perturbation techniques to help generate large numbers of customized test cases. We expect the toolkit to empower fast development of automatic metrics.
 
- This package is designed for the following groups:
+### Contents
 
-* **New to language generation evaluation**: We implement basic metrics for evaluating language generation with unified framework and handy API. 
-* 
-* We have hand-by-hand tutorials and detailed documents that can not only enable you to use relation extraction tools, but also help you better understand the research progress in this field.
-* **Developers**: Our easy-to-use interface and high-performance implementation can acclerate your deployment in the real-world applications. Besides, we provide several pretrained models which can be put into production without any training.
-* **Researchers**: With our modular design, various task settings and metric tools, you can easily carry out experiments on your own models with only minor modification. We have also provided several most-used benchmarks for different settings of relation extraction.
-* **Anyone who need to submit an NLP homework to impress their professors**: With state-of-the-art models, our package can definitely help you stand out among your classmates!
-
-This package is mainly contributed by Jian Guan
-
-
+* [0. Resource](#0-resource)
+* [1. Survey](#1-survey)
+* [2. Generative Model](#2-generative-model)
+  * [2.1 Story](#21-story)
+  * [2.2 Dialog](#22-dialog) 
+  * [2.3 Others](#23-others)
+* [3. Evaluation](#3-evaluation)
+  * [3.1 Metric](#31-metric)
+  * [3.2 Protocol](#32-protocol-for-human-evaluation)
+* [4. Others](#4-others)
 
 
 
@@ -136,7 +133,46 @@ heva.save_correlation_figure(human_score, metric_score, save_path=figure_path, m
 
 
 
-## Perturbation Techniques
+### III. Perturbation Techniques
+
+We provide perturbation techniques in following aspects to create large scale test cases for evaluating comprehensive capabilities of metrics:
+
+- **Lexical repetition**
+
+  - Repeating n-grams or sentences:
+
+    <p> He stepped on the stage <b>and stepped on the stage.</b> </p>
+
+- **Semantic repetition**: 
+
+  - Repeating sentences with paraphrases by back translation:
+
+    <p> He has been from Chicago to Florida. <b>He moved to Florida from Chicago.</b> </p>
+
+- **Character behavior**
+
+  - Reordering the subject and object of a sentence
+  - Substituting the personal pronouns referring to other characters.
+
+- **Common sense**:
+
+- **Consistency**: 
+
+- **Coherence**: 
+
+- **Causal Relationship**:
+
+- **Temporal Relationship**:
+
+- **Synonym**:
+
+- **Paraphrase**:
+
+- **Punctuation**:
+
+- **Contraction**:
+
+- **Typo**:
 
 
 
