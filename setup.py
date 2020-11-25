@@ -4,7 +4,6 @@ setup.py for cotk
 import sys
 import os
 from setuptools import setup, find_packages
-import setuptools
 
 setup(
 	name='eva',
@@ -17,7 +16,6 @@ setup(
 	},
 	include_package_data=True,
 	url='https://github.com/thu-coai/OpenEVA',
-	packages=setuptools.find_packages(),
 	author='thu-coai',
 	author_email='thu-coai-developer@googlegroups.com',
 	python_requires='>=3.7',

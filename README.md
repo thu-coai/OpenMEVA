@@ -32,6 +32,40 @@ The existing generation models are still far from human ability to generate reas
 
 
 
+## Install 
+
+Clone the repository from our github page (don't forget to star us!)
+
+```bash
+git clone https://github.com/thu-coai/OpenEVA.git
+```
+
+Then install all the requirements:
+
+```
+pip install -r requirements.txt
+```
+
+Then install the package with 
+
+```
+python setup.py install
+```
+
+If you also want to modify the code, run this:
+
+```
+python setup.py develop
+```
+
+Note that we have excluded all data and pretrain files for fast deployment. You can manually download them by running scripts in the ``benchmark`` and ``pretrain`` folders. For example, if you want to download FewRel dataset, you can run
+
+```bash
+bash benchmark/download_fewrel.sh
+```
+
+## 
+
 ## Toolkit
 
 ### I. Metrics Interface
@@ -51,6 +85,8 @@ We publish the standard implementation for the following metrics:
 - [BLEURT](https://arxiv.org/abs/2004.04696)
 - RUBER ([RNN-version](https://arxiv.org/abs/1701.03079), [BERT-version](https://www.aclweb.org/anthology/W19-2310.pdf))
 
+
+
 #### 2. Usage
 
 It is handy to construct a metric object and use it to evaluate given examples:
@@ -69,6 +105,8 @@ print(metric.compute(data))
 We present a python file [test.py](https://github.com/thu-coai/OpenEVA/blob/main/test.py) as an instruction to access the API. 
 
 These metrics are not exhaustive, it is a starting point for further metric research. **We welcome any pull request for other metrics** (requiring implementation of only three methods including `__init__`, `info`, `compute`).
+
+
 
 #### 3.Training Learnable metrics
 
@@ -108,6 +146,8 @@ all_possible_score_list = [1,2,3,4,5]
 heva = Heva(all_possible_score_list)
 ```
 
+
+
 #### 2. Consistency of human scores
 
 ```python
@@ -119,6 +159,8 @@ print(heva.consistency(human_score_list))
 # the results includes correlation and p-value for significance test.
 ```
 
+
+
 #### 3. Mean test for scores of examples from different source
 
 ```python
@@ -129,6 +171,8 @@ metric_score_1, metric_score_2 = [3.2, 2.4, 3.1,...], [3.5, 1.2, 2.3, ...]
 print(heva.mean_test(metric_score_1, metric_score_2))
 # {"t-statistic": ..., "p-value": ...}
 ```
+
+
 
 #### 4. Distribution of human scores
 
@@ -145,6 +189,8 @@ model_name = "gpt"
 # plot the figure of distribution of human scores
 heva.save_distribution_figure(score=human_score, save_path=figure_path, model_name=model_name, ymin=0, ymax=50)
 ```
+
+
 
 #### 5. Correlation between human and metric scores
 
@@ -172,6 +218,8 @@ heva.save_correlation_figure(human_score, metric_score, save_path=figure_path, m
 
 ### III. Perturbation Techniques
 
+#### 1. List
+
 We provide perturbation techniques in following aspects to create large scale test cases for evaluating comprehensive capabilities of metrics:
 
 - **Lexical repetition**
@@ -186,7 +234,7 @@ We provide perturbation techniques in following aspects to create large scale te
 
     <blockquote><p> He has been from Chicago to Florida. <b>He moved to Florida from Chicago.</b> </p></blockquote>
 
-- **Character behavior**
+- **Character behavior**:
 
   - Reordering the subject and object of a sentence:
 
@@ -198,25 +246,108 @@ We provide perturbation techniques in following aspects to create large scale te
 
 - **Common sense**:
 
-  - 
+  - Substituting the head or tail entities in a commonsense triple of [ConcepNet](https://www.conceptnet.io):
+
+    <blockquote> Martha puts her dinner into theoven. She lays down fora quick nap. She oversleeps and runs into the kitchen (&rarr; <b>garden</b>) to take out her burnt dinne. </blockquote>
 
 - **Consistency**: 
 
+  - Inserting or Deleting negated words or prefixes:
+
+    <blockquote> She <b>had (&rarr; did not have)</b> money to get vaccinated. She had a flu shot ... </blockquote>
+
+    <blockquote> She <b>agreed (&rarr; disagreed)</b> to get vaccinated. </blockquote>
+
+  - Substituting words with antonyms:
+
+    <blockquote> She is <b>happy (&rarr; upset)</b> that she had a great time ... </blockquote>
+
 - **Coherence**: 
+
+  - Substituting words, phrases or sentences:
+
+    <blockquote> Christmas was very soon. <b>Kelly wanted to put up the Christmas tree. (&rarr; Eventually it went into remission.)</b> </blockquote>
 
 - **Causal Relationship**:
 
+  - Reordering the cause and effect:
+
+    <blockquote> <b>the sky was clear</b> so <b>he could see clearly the boat</b>. &rarr;  <b>he could see clearly the boat</b> so <b>the sky was clear</b>. </blockquote>
+
+  - Substituting the causality-related words randomly:
+
+    <blockquote> the sky was clear<b> so (&rarr; because) </b> he could see clearly the boat. </blockquote>
+
 - **Temporal Relationship**:
+
+  - Reordering two sequential events:
+
+    <blockquote> <b>I eat one bite.</b> Then <b>I was no longer hungry.</b> &rarr; <b>I was no longer hungry.</b> Then <b>I eat one bite.</b> </blockquote>
+
+  - Substituting  the  time-related words:
+
+    <blockquote> <b>After (&rarr; Before) </b> eating one bite I was no longer hungry. </blockquote>
 
 - **Synonym**:
 
+  - Substituting a word with its synonym:
+
+    <blockquote> I just <b>purchased (&rarr; bought)</b> my uniforms. </blockquote>
+
 - **Paraphrase**:
+
+  - Substituting a sentence with its paraphrase by back translation:
+
+    <blockquote> <b>Her dog doesn't shiver anymore.</b> &rarr; <b>Her dog stops shaking.</b> </blockquote>
 
 - **Punctuation**:
 
+  - Inserting or Deleting inessential punctuation mark:
+
+    <blockquote> <b>Eventually,</b> &rarr; <b>Eventually</b> he became very hungry. </blockquote>
+
 - **Contraction**:
 
+  - Contracting or Expanding contraction:
+
+    <blockquote> <b>I’ll (&rarr; I will)</b> have to keep waiting .</blockquote>
+
 - **Typo**:
+
+  - Swapping two adjacent characters:
+
+    <blockquote> that <b>orange (&rarr; ornage)</b> broke her nose. </blockquote>
+
+  - Repeating or Deleting a character:
+
+    <blockquote> that <b>orange (&rarr; orannge) </b>broke her nose. </blockquote>
+
+
+
+#### 2. Usage
+
+It is handy to construct a perturbation object and use it to perturb given examples:
+
+```python
+from eva.perturb.perturb import *
+custom_name = "story"
+method = add_typos(custom_name)
+
+# data is a list of dictionary [{"id":0, "ipt": ..., "truth":...}, ...]
+print(method.construct(data))
+# the perturbed examples can be found under the directory "custom_name"
+```
+
+We present a python file [test_perturb.py](https://github.com/thu-coai/OpenEVA/blob/main/test_perturb.py) as an instruction to access the API. 
+
+You can download dependent files for some perturbation techniques by executing the following command:
+
+```bash
+cd ./eva/perturb
+bash ./download.sh
+```
+
+These perturbation techniques are not exhaustive, it is a starting point for further evaluation research. **We welcome any pull request for other perturbation techniques** (requiring implementation of only two methods including `__init__`, `construct`).
 
 
 
@@ -231,19 +362,6 @@ We provide perturbation techniques in following aspects to create large scale te
 
 
 
-
-
-
- 
-
-## Toolkit Usage
-
-### Union metric
-
-1. Put your pre-trained model in eva/union_metric/model/
-2. Prepare data
-3. call `UNION.train(data)`
-4. call `UNION.compute(data)`
 
 
 
@@ -270,38 +388,6 @@ It's our honor to help you better explore relation extraction with our OpenNRE t
 If you want to learn more about neural relation extraction, visit another project of ours ([NREPapers](https://github.com/thunlp/NREPapers)).
 
 You can refer to our [document](https://opennre-docs.readthedocs.io/en/latest/) for more details about this project.
-
-## Install 
-
-Clone the repository from our github page (don't forget to star us!)
-
-```bash
-git clone https://github.com/thu-coai/OpenEVA.git
-```
-
-Then install all the requirements:
-
-```
-pip install -r requirements.txt
-```
-
-Then install the package with 
-
-```
-python setup.py install
-```
-
-If you also want to modify the code, run this:
-
-```
-python setup.py develop
-```
-
-Note that we have excluded all data and pretrain files for fast deployment. You can manually download them by running scripts in the ``benchmark`` and ``pretrain`` folders. For example, if you want to download FewRel dataset, you can run
-
-```bash
-bash benchmark/download_fewrel.sh
-```
 
 ## Easy Start
 

@@ -40,7 +40,7 @@ def test_metric(data):
     metric_score.update(bertscore_metric.compute(data))
 
     from eva.bleurt import BLEURT # dependency: bleurt from: git+https://github.com/google-research/bleurt.git
-    bleurt_metric = BLEURT(model_type="bleurt-tiny-512", model_path="your_model_path"%)
+    bleurt_metric = BLEURT(model_type="bleurt-tiny-512", model_path="your_model_path")
     # print(bleurt_metric.info())
     metric_score.update(bleurt_metric.compute(data))
 
