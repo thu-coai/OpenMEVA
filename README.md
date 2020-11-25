@@ -58,7 +58,7 @@ It is handy to construct a metric object and use it to evaluate given examples:
 ```python
 from eva.bleu import BLEU
 metric = BLEU()
-print(metric.info) # for more information about the metric
+print(metric.info)	# for more information about the metric
 print(metric.compute(data)) # data is a list of dictionary [{"context": ..., "candidate":..., "reference": ...}]
 ```
 
