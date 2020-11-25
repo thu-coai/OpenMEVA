@@ -73,9 +73,9 @@ Execute the following command for training learnable metrics:
 ```bash
 cd ./eva/model
 bash ./run_language_modeling.sh # training language model for computing forward perplexity
-bash ./run_ruber_unrefer.sh	# training the unreferenced model for computing RUBER (RNN version)
-bash ./run_ruber_unrefer_bert.sh	# training the unreferenced model for computing RUBER (BERT version)
-bash ./run_union.sh	# training the model for computing UNION
+bash ./run_ruber_unrefer.sh # training the unreferenced model for computing RUBER (RNN version)
+bash ./run_ruber_unrefer_bert.sh # training the unreferenced model for computing RUBER (BERT version)
+bash ./run_union.sh # training the model for computing UNION
 ```
 
 
@@ -95,7 +95,7 @@ heva = Heva(all_possible_score_list) # construct an object for following evaluat
 #### 2. Consistency of human scores
 
 ```python
-human_score_list = [[1,3,2], [1,3,3], [2,3,1], ...]	# list of human score list, each row includes all the human scores for an example
+human_score_list = [[1,3,2], [1,3,3], [2,3,1], ...] # list of human score list, each row includes all the human scores for an example
 print(heva.consistency(human_score_list))
 # {"Fleiss's kappa": ..., "ICC correlation": ..., "Kendall-w":..., "krippendorff's alpha":...}
 # the results includes correlation and p-value for significance test.
@@ -105,7 +105,7 @@ print(heva.consistency(human_score_list))
 
 ```python
 metric_score_1, metric_score_2 = [3.2, 2.4, 3.1,...], [3.5, 1.2, 2.3, ...] # list of metric scores (float)
-print(heva.mean_test(metric_score_1, metric_score_2))	# T-test for the means of two independent samples of scores.
+print(heva.mean_test(metric_score_1, metric_score_2)) # T-test for the means of two independent samples of scores.
 # {"t-statistic": ..., "p-value": ...}
 ```
 
@@ -113,8 +113,8 @@ print(heva.mean_test(metric_score_1, metric_score_2))	# T-test for the means of 
 
 ```python
 human_score = [2.0, 4.2, 1.2, 4.9, 2.6, 3.1, 4.0, 1.5,...] # list of human scores (float)
-figure_path = "./figure"	# path for saving the figure of distribution
-model_name = "gpt"	# indicating the source of the annotated examples. default: ""
+figure_path = "./figure" # path for saving the figure of distribution
+model_name = "gpt" # indicating the source of the annotated examples. default: ""
 heva.save_distribution_figure(score=human_score, save_path=figure_path, model_name=model_name, ymin=0, ymax=50)
 ```
 
@@ -126,8 +126,8 @@ metric_score = [3.2, 2.4, 3.1, 3.5, 1.2, 2.3, 3.5, 1.1,...] # list of metric sco
 print(heva.correlation(metric_score, human_score))
 
 
-figure_path = "./figure"	# path for saving the figure of distribution
-metric_name = "bleu"	# indicating the source of the metric scores. default: ""
+figure_path = "./figure" # path for saving the figure of distribution
+metric_name = "bleu" # indicating the source of the metric scores. default: ""
 heva.save_correlation_figure(human_score, metric_score, save_path=figure_path, metric_name=metric_name)
 ```
 
@@ -141,20 +141,27 @@ We provide perturbation techniques in following aspects to create large scale te
 
   - Repeating n-grams or sentences:
 
-    <p> He stepped on the stage <b>and stepped on the stage.</b> </p>
+    <blockquote>He stepped on the stage <b>and stepped on the stage.</b></blockquote>
 
 - **Semantic repetition**: 
 
   - Repeating sentences with paraphrases by back translation:
 
-    <p> He has been from Chicago to Florida. <b>He moved to Florida from Chicago.</b> </p>
+    <blockquote><p> He has been from Chicago to Florida. <b>He moved to Florida from Chicago.</b> </p></blockquote>
 
 - **Character behavior**
 
-  - Reordering the subject and object of a sentence
-  - Substituting the personal pronouns referring to other characters.
+  - Reordering the subject and object of a sentence:
+
+    <blockquote>Lars looked at the girl with desire.&rarr; the girl looked at Lars with desire. </blockquote>
+
+  - Substituting the personal pronouns referring to other characters:
+
+    <blockquote>her mother took them to ... &rarr; their mother took her to ... </blockquote>
 
 - **Common sense**:
+
+  - 
 
 - **Consistency**: 
 
