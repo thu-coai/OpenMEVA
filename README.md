@@ -121,7 +121,7 @@ These metrics are not exhaustive, it is a starting point for further metric rese
 
 
 
-#### 3.Training Learnable Metrics
+#### 3. Training Learnable Metrics
 
 Execute the following command for training learnable metrics:
 
