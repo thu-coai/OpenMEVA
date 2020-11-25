@@ -58,8 +58,12 @@ It is handy to construct a metric object and use it to evaluate given examples:
 ```python
 from eva.bleu import BLEU
 metric = BLEU()
-print(metric.info)	# for more information about the metric
-print(metric.compute(data)) # data is a list of dictionary [{"context": ..., "candidate":..., "reference": ...}]
+
+# for more information about the metric
+print(metric.info)
+
+# data is a list of dictionary [{"context": ..., "candidate":..., "reference": ...}]
+print(metric.compute(data))
 ```
 
 We present a python file [test.py](https://github.com/thu-coai/OpenEVA/blob/main/test.py) as an instruction to access the API. 
@@ -72,10 +76,18 @@ Execute the following command for training learnable metrics:
 
 ```bash
 cd ./eva/model
-bash ./run_language_modeling.sh # training language model for computing forward perplexity
-bash ./run_ruber_unrefer.sh # training the unreferenced model for computing RUBER (RNN version)
-bash ./run_ruber_unrefer_bert.sh # training the unreferenced model for computing RUBER (BERT version)
-bash ./run_union.sh # training the model for computing UNION
+
+# training language model for computing forward perplexity
+bash ./run_language_modeling.sh
+
+# training the unreferenced model for computing RUBER (RNN version)
+bash ./run_ruber_unrefer.sh
+
+# training the unreferenced model for computing RUBER (BERT version)
+bash ./run_ruber_unrefer_bert.sh
+
+# training the model for computing UNION
+bash ./run_union.sh
 ```
 
 
@@ -88,14 +100,20 @@ The python file [test.py](https://github.com/thu-coai/OpenEVA/blob/main/test.py)
 
 ```python
 from eva.heva import Heva
-all_possible_score_list = [1,2,3,4,5] # list of all possible human scores (int/float/str).
-heva = Heva(all_possible_score_list) # construct an object for following evaluation
+
+# list of all possible human scores (int/float/str).
+all_possible_score_list = [1,2,3,4,5]
+
+# construct an object for following evaluation
+heva = Heva(all_possible_score_list)
 ```
 
 #### 2. Consistency of human scores
 
 ```python
-human_score_list = [[1,3,2], [1,3,3], [2,3,1], ...] # list of human score list, each row includes all the human scores for an example
+# list of human score list, each row includes all the human scores for an example
+human_score_list = [[1,3,2], [1,3,3], [2,3,1], ...]
+
 print(heva.consistency(human_score_list))
 # {"Fleiss's kappa": ..., "ICC correlation": ..., "Kendall-w":..., "krippendorff's alpha":...}
 # the results includes correlation and p-value for significance test.
@@ -104,30 +122,49 @@ print(heva.consistency(human_score_list))
 #### 3. Mean test for scores of examples from different source
 
 ```python
-metric_score_1, metric_score_2 = [3.2, 2.4, 3.1,...], [3.5, 1.2, 2.3, ...] # list of metric scores (float)
-print(heva.mean_test(metric_score_1, metric_score_2)) # T-test for the means of two independent samples of scores.
+# list of metric scores (float)
+metric_score_1, metric_score_2 = [3.2, 2.4, 3.1,...], [3.5, 1.2, 2.3, ...]
+
+# T-test for the means of two independent samples of scores.
+print(heva.mean_test(metric_score_1, metric_score_2))
 # {"t-statistic": ..., "p-value": ...}
 ```
 
 #### 4. Distribution of human scores
 
 ```python
-human_score = [2.0, 4.2, 1.2, 4.9, 2.6, 3.1, 4.0, 1.5,...] # list of human scores (float)
-figure_path = "./figure" # path for saving the figure of distribution
-model_name = "gpt" # indicating the source of the annotated examples. default: ""
+# list of human scores (float)
+human_score = [2.0, 4.2, 1.2, 4.9, 2.6, 3.1, 4.0, 1.5,...]
+
+# path for saving the figure of distribution
+figure_path = "./figure"
+
+# indicating the source of the annotated examples. default: ""
+model_name = "gpt"
+
+# plot the figure of distribution of human scores
 heva.save_distribution_figure(score=human_score, save_path=figure_path, model_name=model_name, ymin=0, ymax=50)
 ```
 
 #### 5. Correlation between human and metric scores
 
 ```python
-human_score = [2.0, 4.2, 1.2, 4.9, 2.6, 3.1, 4.0, 1.5,...] # list of human scores (float)
-metric_score = [3.2, 2.4, 3.1, 3.5, 1.2, 2.3, 3.5, 1.1,...] # list of metric scores (float)
+# list of human scores (float)
+human_score = [2.0, 4.2, 1.2, 4.9, 2.6, 3.1, 4.0, 1.5,...]
+
+# list of metric scores (float)
+metric_score = [3.2, 2.4, 3.1, 3.5, 1.2, 2.3, 3.5, 1.1,...]
+
+# computing correlation
 print(heva.correlation(metric_score, human_score))
 
+# path for saving the figure of distribution
+figure_path = "./figure"
 
-figure_path = "./figure" # path for saving the figure of distribution
-metric_name = "bleu" # indicating the source of the metric scores. default: ""
+# indicating the source of the metric scores. default: ""
+metric_name = "bleu"
+
+# plot the figure of metric score vs. human scores
 heva.save_correlation_figure(human_score, metric_score, save_path=figure_path, metric_name=metric_name)
 ```
 
