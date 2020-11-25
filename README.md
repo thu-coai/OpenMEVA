@@ -29,7 +29,7 @@ OpenEVA is a benchmark for evaluating open-ended story generation (Please refer 
     * [2. ACTS](#2-auto-constructed-stories-acts)
     * [3. Download & Instruction](#3-download--data-instruction)
   * [II. Tasks](#ii-tasks)
-    * [1. Correlation]()
+    * [1. Correlation](#1-correlation-with-human-scores-based-on-mags)
     * [2. Generalization](#2-generalization-across-generation-models-and-dataset-for-learnable-metrics-based-on-mags)
     * [3. Judgment](#3-judgment-in-general-linguistic-features--based-on-the-discrimination-test-set-of-acts)
     * [4. Robustness](#4-robustness-to-rationality-preserving-perturbations--based-on-the-invariance-test-set-of-acts)
