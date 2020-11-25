@@ -23,7 +23,7 @@ OpenEVA is a benchmark for evaluating open-ended story generation (Please refer 
   * [III. Perturbation Techniques](#iii-perturbation-techniques)
     * [Perturbation List](#1-perturbation-list)
     * [Usage](#2-usage-1)
-* [IV. Benchmark](#benchmark)
+* [Benchmark](#benchmark)
   * [I. Datasets](#i-datasets)
     * [1. MAGS](#1-machine-generated-stories-mags-with-manual-annotation)
     * [2. ACTS](#2-auto-constructed-stories-acts)
@@ -35,7 +35,7 @@ OpenEVA is a benchmark for evaluating open-ended story generation (Please refer 
     * [4. Robustness](#4-robustness-to-rationality-preserving-perturbations--based-on-the-invariance-test-set-of-acts)
     * [5. Fast Test](#5-fast-test)
 
-- [V. How to Cite](#v-how-to-cite)
+- [How to Cite](#how-to-cite)
 
 
 
@@ -493,7 +493,7 @@ We take BLEU and Forward Perplexity as examples in the python files. You can tes
 
 
 
-## V. How to Cite
+## How to Cite
 
 ```
 
