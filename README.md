@@ -7,16 +7,25 @@ OpenEVA is a benchmark for evaluating open-ended story generation (Please refer 
 
 ### Contents
 
-* [0. Resource](#0-resource)
-* [1. Survey](#1-survey)
-* [2. Generative Model](#2-generative-model)
-  * [2.1 Story](#21-story)
-  * [2.2 Dialog](#22-dialog) 
-  * [2.3 Others](#23-others)
-* [3. Evaluation](#3-evaluation)
-  * [3.1 Metric](#31-metric)
-  * [3.2 Protocol](#32-protocol-for-human-evaluation)
-* [4. Others](#4-others)
+* [Introduction to Language Generation Evaluation](#introduction-for-language-generation-evaluation)
+* [Install](#install)
+* [Toolkit](#toolkit)
+  * [I. Metric Interface](#i-metrics-interface)
+    * [Metric List](#1-metric-list)
+    * [Usage](#2-usage)
+    * [Training Learnable Metrics](#3training-learnable-metrics)
+  * [II. Evaluating Human Score](#ii-evaluating-human-scores)
+    * [Constructing](#1-constructing)
+    * [Consistency](#2-consistency-of-human-scores)
+    * [Mean Test](#3-mean-test-for-scores-of-examples-from-different-source)
+    * [Distribution](#4-distribution-of-human-scores)
+    * [Correlation](#5-correlation-between-human-and-metric-scores)
+  * [III. Perturbation Techniques](#iii-perturbation-techniques)
+    * [Perturbation List](#1-list)
+    * [Usage](#2-usage-1)
+* [IV. Benchmark](#benchmark)
+
+
 
 
 
@@ -58,13 +67,7 @@ If you also want to modify the code, run this:
 python setup.py develop
 ```
 
-Note that we have excluded all data and pretrain files for fast deployment. You can manually download them by running scripts in the ``benchmark`` and ``pretrain`` folders. For example, if you want to download FewRel dataset, you can run
 
-```bash
-bash benchmark/download_fewrel.sh
-```
-
-## 
 
 ## Toolkit
 
@@ -108,7 +111,7 @@ These metrics are not exhaustive, it is a starting point for further metric rese
 
 
 
-#### 3.Training Learnable metrics
+#### 3.Training Learnable Metrics
 
 Execute the following command for training learnable metrics:
 
@@ -130,7 +133,7 @@ bash ./run_union.sh
 
 
 
-### II. Evaluating human scores
+### II. Evaluating Human Scores
 
 The python file [test.py](https://github.com/thu-coai/OpenEVA/blob/main/test.py) also includes detailed instruction to access the API for evaluating human scores. 
 
@@ -161,7 +164,7 @@ print(heva.consistency(human_score_list))
 
 
 
-#### 3. Mean test for scores of examples from different source
+#### 3. Mean Test for scores of examples from different source
 
 ```python
 # list of metric scores (float)
@@ -218,7 +221,7 @@ heva.save_correlation_figure(human_score, metric_score, save_path=figure_path, m
 
 ### III. Perturbation Techniques
 
-#### 1. List
+#### 1. Perturbation List
 
 We provide perturbation techniques in following aspects to create large scale test cases for evaluating comprehensive capabilities of metrics:
 
@@ -349,7 +352,7 @@ bash ./download.sh
 
 These perturbation techniques are not exhaustive, it is a starting point for further evaluation research. **We welcome any pull request for other perturbation techniques** (requiring implementation of only two methods including `__init__`, `construct`).
 
-**Note**:bookmark_tabs: We adopt [uda](https://github.com/google-research/uda) for back translation. We provide an example `eva/perturb/back_trans_data/story_bt.json` to indicate the format of the back translation result. And you can download the results for ROC and WP [here](https://cloud.tsinghua.edu.cn/d/e31fc38a29be446a9bc5/).
+**Note**:bookmark_tabs: We adopt [uda](https://github.com/google-research/uda) for back translation. We provide an example `eva/perturb/back_trans_data/story_bt.json` to indicate the format of the back translation result. And you can download the results for ROCStories and WritingPrompts by [THUCloud](https://cloud.tsinghua.edu.cn/d/e31fc38a29be446a9bc5/) or [Google Drive](https://drive.google.com/drive/folders/1-JkjvKDJh4-X6uAHKYnzFYXMsqhOX3ft?usp=sharing).
 
 
 
@@ -357,13 +360,103 @@ These perturbation techniques are not exhaustive, it is a starting point for fur
 
 ### Datasets
 
+#### 1. Machine-Generated Stories (MAGS) with manual annotation
+
+We provide annotated stories from ROCStories (ROC) and WritingPrompts (WP). Some statistics are as follows:
+
+<img src="./figure/stat.png" style="zoom:30%;" />
+
+Boxplot of annotation scores for each story source (Left: ROC, Right: WP):
+
+![](./figure/distribution.png)
+
+
+
+#### 2. Auto-Constructed Stories (ACTS)
+
+We create large-scale test examples based on ROC and WP by aforementioned perturbation techniques. ACTS includes examples for different test types, i.e., discrimination test and invariance test.
+
+- The discrimination test requires metrics to distinguish human-written positive examples from negative ones. Wecreate each negative example by applying pertur-bation within an individual aspect.  Besides, we also select different positive examples targeted for corresponding aspects. Below table shows the numbers of positive and negative examples in different aspects.
+
+  ![](./figure/acts_dis.png)
+
+- The invariance test expect the metric judgments to remain the same when we apply rationality-preserving perturbations, which means almost no influence on the quality of examples. The original examples can be either the human-written stories or the negative examples created in the discrimination test. Below table shows the numbers of original (also perturbed) positive and negative examples in different aspects.
+
+  ![](./figure/acts_inv.png)
+
+
+
+#### 3. Download
+
+
+
+#### 4. Data Instruction
+
+```markdown
+├── data
+   └── `mags_data`
+       ├── `mags_roc.json`	# sampled stories and corresponding human annotation.   
+       ├── `mags_wp.json`		# sampled stories and corresponding human annotation.       
+   └── `acts_data`
+       ├── `roc`
+              └── `roc_ipt.txt`		# input of original stories
+              └── `roc_truth.txt`	# ground truth of original stories
+              └── `discrimination_test`                        
+										├── `roc_lexical_rept.txt`
+										├── `roc_lexical_rept_perturb.txt`										
+										├── `roc_semantic_rept.txt`
+										├── `roc_semantic_rept_perturb.txt`
+										├── `roc_character.txt`
+										├── `roc_character_perturb.txt`
+										├── `roc_commonsense.txt`
+										├── `roc_commonsense_perturb.txt`												
+										├── `roc_coherence.txt`
+										├── `roc_coherence_perturb.txt`
+										├── `roc_consistency.txt`
+										├── `roc_consistency_perturb.txt`								
+										├── `roc_cause.txt`
+										├── `roc_cause_perturb.txt`       										
+										├── `roc_time.txt`
+										├── `roc_time_perturb.txt`                    
+              └── `invariance_test`
+										├── `roc_synonym_substitute_perturb.txt`
+										├── `roc_semantic_substitute_perturb.txt`
+										├── `roc_contraction_perturb.txt`
+										├── `roc_delete_punct_perturb.txt`
+										├── `roc_typos_perturb.txt`
+										├── `roc_negative_sample.txt`	# sampled negative samples from the discrimination test.	
+										├── `roc_negative_sample_synonym_substitute_perturb.txt`
+										├── `roc_negative_sample_semantic_substitute_perturb.txt`
+										├── `roc_negative_sample_contraction_perturb.txt`
+										├── `roc_negative_sample_delete_punct_perturb.txt`
+										├── `roc_negative_sample_typos_perturb.txt`
+       ├── `wp`
+              └── ...
+```
+
 
 
 ### Tasks
 
+OpenEVA includes a suite of tasks to test comprehensive capabilities of metrics:
 
+- Correlation with human scores (based on MAGS)
 
+  <img src="./figure/task1.png" style="zoom: 25%;" />
 
+- Generalization across generation models and dataset (for learnable metrics, based on MAGS)
+
+  <img src="./figure/task2.png" style="zoom:30%;" />
+
+- Judgment in general linguistic features  (based on the discrimination test set of ACTS)
+
+  ![](./figure/task3.png)
+
+- Robustness to rationality-preserving perturbations  (based on the invariance test set of ACTS)
+
+  ![](./figure/task4.png)
+
+  **Note:** The smaller absolute value of correlation is the better.
 
 
 
@@ -384,43 +477,3 @@ A good research work is always accompanied by a thorough and faithful reference.
 ```
 
 It's our honor to help you better explore relation extraction with our OpenNRE toolkit!
-
-## Papers and Document
-
-If you want to learn more about neural relation extraction, visit another project of ours ([NREPapers](https://github.com/thunlp/NREPapers)).
-
-You can refer to our [document](https://opennre-docs.readthedocs.io/en/latest/) for more details about this project.
-
-## Easy Start
-
-Make sure you have installed OpenNRE as instructed above. Then import our package and load pre-trained models.
-
-```python
->>> import opennre
->>> model = opennre.get_model('wiki80_cnn_softmax')
-```
-
-Note that it may take a few minutes to download checkpoint and data for the first time. Then use `infer` to do sentence-level relation extraction
-
-```python
->>> model.infer({'text': 'He was the son of Máel Dúin mac Máele Fithrich, and grandson of the high king Áed Uaridnach (died 612).', 'h': {'pos': (18, 46)}, 't': {'pos': (78, 91)}})
-('father', 0.5108704566955566)
-```
-
-You will get the relation result and its confidence score.
-
-For now, we have the following available models:
-
-* `wiki80_cnn_softmax`: trained on `wiki80` dataset with a CNN encoder.
-* `wiki80_bert_softmax`: trained on `wiki80` dataset with a BERT encoder.
-* `wiki80_bertentity_softmax`: trained on `wiki80` dataset with a BERT encoder (using entity representation concatenation).
-* `tacred_bert_softmax`: trained on `TACRED` dataset with a BERT encoder.
-* `tacred_bertentity_softmax`: trained on `TACRED` dataset with a BERT encoder (using entity representation concatenation).
-
-## Training
-
-You can train your own models on your own data with OpenNRE. In `example` folder we give example training codes for supervised RE models and bag-level RE models. You can either use our provided datasets or your own datasets.
-
-## Google Group
-
-If you want to receive our update news or take part in discussions, please join our [Google Group](

@@ -143,11 +143,11 @@ class UNION():
                     ckpt_list.append(".".join(name.split(".")[:2]))
         ckpt_list = sorted(list(set(ckpt_list)))
 
-        # for ckpt in ckpt_list:
-        #     path_name = "%s/%s_%s_%s.txt" % (self.model_path, pred_file_name, "probabilities", ckpt)
-        #     if os.path.exists(path_name):
-        #         os.system("rm %s" % (path_name))
-        #         print("rm %s" % path_name)
+        for ckpt in ckpt_list:
+            path_name = "%s/%s_%s_%s.txt" % (self.model_path, pred_file_name, "probabilities", ckpt)
+            if os.path.exists(path_name):
+                os.system("rm %s" % (path_name))
+                print("rm %s" % path_name)
         res = {}
 
         for ckpt in ckpt_list:
