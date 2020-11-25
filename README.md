@@ -21,9 +21,14 @@ OpenEVA is a benchmark for evaluating open-ended story generation (Please refer 
     * [Distribution](#4-distribution-of-human-scores)
     * [Correlation](#5-correlation-between-human-and-metric-scores)
   * [III. Perturbation Techniques](#iii-perturbation-techniques)
-    * [Perturbation List](#1-list)
+    * [Perturbation List](#1-perturbation-list)
     * [Usage](#2-usage-1)
 * [IV. Benchmark](#benchmark)
+  * [I. Datasets](#i-datasets)
+    * [1. MAGS](#1-machine-generated-stories-mags-with-manual-annotation)
+    * [2. ACTS](#2-auto-constructed-stories-acts)
+    * [3. Download & Instruction](#3-download--data-instruction)
+  * [II. Tasks](#ii-tasks)
 
 
 
@@ -360,7 +365,7 @@ These perturbation techniques are not exhaustive, it is a starting point for fur
 
 ## Benchmark
 
-### Datasets
+### I. Datasets
 
 #### 1. Machine-Generated Stories (MAGS) with manual annotation
 
@@ -440,27 +445,29 @@ You can download the whole dataset by [THUCloud](https://cloud.tsinghua.edu.cn/d
 
 
 
-### Tasks
+### II. Tasks
 
 OpenEVA includes a suite of tasks to test comprehensive capabilities of metrics:
 
-- Correlation with human scores (based on MAGS)
+####1. Correlation with human scores (based on MAGS)
 
-  <img src="./figure/task1.png" />
+<img src="./figure/task1.png" />
 
-- Generalization across generation models and dataset (for learnable metrics, based on MAGS)
+#### 2. Generalization across generation models and dataset (for learnable metrics, based on MAGS)
 
-  <img src="./figure/task2.png" style="zoom:30%;" />
+<img src="./figure/task2.png" style="zoom:30%;" />
 
-- Judgment in general linguistic features  (based on the discrimination test set of ACTS)
+#### 3. Judgment in general linguistic features  (based on the discrimination test set of ACTS)
 
-  ![](./figure/task3.png)
+![](./figure/task3.png)
 
-- Robustness to rationality-preserving perturbations  (based on the invariance test set of ACTS)
+#### 4. Robustness to rationality-preserving perturbations  (based on the invariance test set of ACTS)
 
-  ![](./figure/task4.png)
+![](./figure/task4.png)
 
-  **Note:** The smaller absolute value of correlation is the better.
+**Note:** The smaller absolute value of correlation is the better.
+
+#### 5. Fast Test
 
 You can test these capabilities of new metrics by following command:
 
