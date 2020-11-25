@@ -1,0 +1,46 @@
+[
+    {
+        "his parents were overweight .": {
+            "score": 0.999999999999999,
+            "trans": "his parents were overweight ."
+        },
+        "he was overweight as well .": {
+            "score": 0.5759456063871445,
+            "trans": "he was overweight , too ."
+        },
+        "so the doctors told his parents it was unhealthy .": {
+            "score": 0.4462997531832513,
+            "trans": "so the doctor told his parents that it was not healthy ."
+        },
+        "his parents understood and decided to make a change .": {
+            "score": 0.9999453120108219,
+            "trans": "his parents understood and decided to make a change."
+        },
+        "they got themselves and him on a diet .": {
+            "score": 0.5090888860783591,
+            "trans": "they put themselves on a diet with him ."
+        }
+    },
+    {
+        "he was out jogging one morning .": {
+            "score": 0.5195623671896094,
+            "trans": "one morning he went out jogging ."
+        },
+        "the weather was crisp and cool .": {
+            "score": 0.6118588307190177,
+            "trans": "the weather is cool and crisp ."
+        },
+        "then, he felt good and energetic .": {
+            "score": 0.8646757583529754,
+            "trans": "then he felt good and energetic ."
+        },
+        "he decided to keep jogging longer than normal .": {
+            "score": 0.5178394450963837,
+            "trans": "he decided to jog longer than usual."
+        },
+        "he went several more miles out of his way .": {
+            "score": 0.24771771058183567,
+            "trans": "[MALE] walked a few more miles ."
+        }
+    }
+]

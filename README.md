@@ -1,5 +1,5 @@
 # OpenEVA
-![](https://img.shields.io/github/last-commit/thu-coai/PaperForONLG?color=blue) ![](https://img.shields.io/badge/PRs-Welcome-red) 
+![](https://img.shields.io/github/last-commit/thu-coai/OpenEVA?color=blue) ![](https://img.shields.io/badge/PRs-Welcome-red) 
 
 Contributed by [Jian Guan](https://jianguanthu.github.io/), [Zhexin Zhang](https://github.com/nonstopfor)
 
@@ -348,6 +348,8 @@ bash ./download.sh
 ```
 
 These perturbation techniques are not exhaustive, it is a starting point for further evaluation research. **We welcome any pull request for other perturbation techniques** (requiring implementation of only two methods including `__init__`, `construct`).
+
+**Note**:bookmark_tabs: We adopt [uda](https://github.com/google-research/uda) for back translation. We provide an example `eva/perturb/back_trans_data/story_bt.json` to indicate the format of the back translation result. And you can download the results for ROC and WP [here](https://cloud.tsinghua.edu.cn/d/e31fc38a29be446a9bc5/).
 
 
 
