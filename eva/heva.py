@@ -41,12 +41,15 @@ class Heva():
             "krippendorff_alpha_ratio": krippendorff_alpha(human_score_list, "ratio"),
         }
 
-    def save_distribution_figure(self, score, save_path, model_name, ymin=0, ymax=200):
+    def save_distribution_figure(self, score, save_path, model_name="", ymin=0, ymax=200):
         minvalue, maxvalue = min(self.avail_label_list), max(self.avail_label_list)
         bar_width = 0.25
         plt.cla()
         plt.hist(score, bins=int((maxvalue-minvalue)/bar_width), range=(minvalue, maxvalue))
-        plt.xlabel("score of %s"%model_name)
+        if model_name != "":
+            plt.xlabel("score of %s"%model_name)
+        else:
+            plt.xlabel("score")
         plt.ylabel("number")
         plt.ylim(ymax = ymax)
         plt.ylim(ymin = ymin)
@@ -62,14 +65,14 @@ class Heva():
             "p-value": mean_test_result[1],
         }
 
-    def save_correlation_figure(self, human_score, metric_score, save_path, metric_name):
+    def save_correlation_figure(self, human_score, metric_score, save_path, metric_name=""):
         plt.cla()
         plt.plot(human_score, metric_score, ".")
         plt.xlabel("human")
         plt.ylabel(metric_name)
         if not os.path.exists(save_path):
             os.system("mkdir %s"%save_path)
-        plt.savefig("%s/%s.pdf"%(save_path, metric_name))
+        plt.savefig("%s/corr_%s.pdf"%(save_path, metric_name))
 
     def correlation(self, human_score, metric_score):
         # human_score / metric_score: [1,2,3,4,...]

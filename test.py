@@ -131,7 +131,7 @@ if __name__ == "__main__":
                 'context': "Jian is a student.",
                 'reference': ["Jian comes from Tsinghua University. Jian is sleeping."],
                 'candidate': "He comes from Beijing. He is sleeping.",
-                'model_name': "human",
+                'model_name': "gpt",
                 'score': [5, 5, 5],
                 'metric_score': {},
             },
@@ -139,7 +139,7 @@ if __name__ == "__main__":
                 'context': "Jian is a worker.",
                 'reference': ["Jian came from China. Jian was running."],
                 'candidate': "He came from China.",
-                'model_name': "human",
+                'model_name': "gpt",
                 'score': [4, 4, 4],
                 'metric_score': {},
             }

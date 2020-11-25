@@ -57,8 +57,14 @@ Returns:
 """
 
 class EMBED():
-    def __init__(self, embedding_file, tokenizer):
-        self.ruber_refer = RUBER_refer(embedding_file, tokenizer, method=["greedy_matching", "vector_average", "vector_extrema"], name="embed_metric")
+    def __init__(self, embedding_file, tokenizer, method=None):
+        if method is None:
+          method = ["greedy_matching", "vector_average", "vector_extrema"]
+        elif isinstance(method, str):
+          method = [method]
+        elif isinstance(method, list):
+          method = method
+        self.ruber_refer = RUBER_refer(embedding_file, tokenizer, method=method, name="embed_metric")
 
     def info(self):
         return {
