@@ -29,8 +29,13 @@ OpenEVA is a benchmark for evaluating open-ended story generation (Please refer 
     * [2. ACTS](#2-auto-constructed-stories-acts)
     * [3. Download & Instruction](#3-download--data-instruction)
   * [II. Tasks](#ii-tasks)
+    * [1. Correlation]()
+    * [2. Generalization](#2-generalization-across-generation-models-and-dataset-for-learnable-metrics-based-on-mags)
+    * [3. Judgment](#3-judgment-in-general-linguistic-features--based-on-the-discrimination-test-set-of-acts)
+    * [4. Robustness](#4-robustness-to-rationality-preserving-perturbations--based-on-the-invariance-test-set-of-acts)
+    * [5. Fast Test](#5-fast-test)
 
-
+- [V. How to Cite](#v-how-to-cite)
 
 
 
@@ -449,7 +454,7 @@ You can download the whole dataset by [THUCloud](https://cloud.tsinghua.edu.cn/d
 
 OpenEVA includes a suite of tasks to test comprehensive capabilities of metrics:
 
-####1. Correlation with human scores (based on MAGS)
+#### 1. Correlation with human scores (based on MAGS)
 
 <img src="./figure/task1.png" />
 
@@ -488,7 +493,7 @@ We take BLEU and Forward Perplexity as examples in the python files. You can tes
 
 
 
-## How to Cite
+## V. How to Cite
 
 ```
 
