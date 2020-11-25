@@ -402,34 +402,34 @@ We create large-scale test examples based on ROC and WP by aforementioned pertur
               └── `roc_ipt.txt`		# input of original stories
               └── `roc_truth.txt`	# ground truth of original stories
               └── `discrimination_test`                        
-										├── `roc_lexical_rept.txt`
-										├── `roc_lexical_rept_perturb.txt`										
-										├── `roc_semantic_rept.txt`
-										├── `roc_semantic_rept_perturb.txt`
-										├── `roc_character.txt`
-										├── `roc_character_perturb.txt`
-										├── `roc_commonsense.txt`
-										├── `roc_commonsense_perturb.txt`												
-										├── `roc_coherence.txt`
-										├── `roc_coherence_perturb.txt`
-										├── `roc_consistency.txt`
-										├── `roc_consistency_perturb.txt`								
-										├── `roc_cause.txt`
-										├── `roc_cause_perturb.txt`       										
-										├── `roc_time.txt`
-										├── `roc_time_perturb.txt`                    
+                 ├── `roc_lexical_rept.txt`
+                 ├── `roc_lexical_rept_perturb.txt`										
+                 ├── `roc_semantic_rept.txt`
+                 ├── `roc_semantic_rept_perturb.txt`
+                 ├── `roc_character.txt`
+                 ├── `roc_character_perturb.txt`
+                 ├── `roc_commonsense.txt`
+                 ├── `roc_commonsense_perturb.txt`												
+                 ├── `roc_coherence.txt`
+                 ├── `roc_coherence_perturb.txt`
+                 ├── `roc_consistency.txt`
+                 ├── `roc_consistency_perturb.txt`								
+                 ├── `roc_cause.txt`
+                 ├── `roc_cause_perturb.txt`       										
+                 ├── `roc_time.txt`
+                 ├── `roc_time_perturb.txt`                    
               └── `invariance_test`
-										├── `roc_synonym_substitute_perturb.txt`
-										├── `roc_semantic_substitute_perturb.txt`
-										├── `roc_contraction_perturb.txt`
-										├── `roc_delete_punct_perturb.txt`
-										├── `roc_typos_perturb.txt`
-										├── `roc_negative_sample.txt`	# sampled negative samples from the discrimination test.	
-										├── `roc_negative_sample_synonym_substitute_perturb.txt`
-										├── `roc_negative_sample_semantic_substitute_perturb.txt`
-										├── `roc_negative_sample_contraction_perturb.txt`
-										├── `roc_negative_sample_delete_punct_perturb.txt`
-										├── `roc_negative_sample_typos_perturb.txt`
+                 ├── `roc_synonym_substitute_perturb.txt`
+                 ├── `roc_semantic_substitute_perturb.txt`
+                 ├── `roc_contraction_perturb.txt`
+                 ├── `roc_delete_punct_perturb.txt`
+                 ├── `roc_typos_perturb.txt`
+                 ├── `roc_negative_sample.txt`	# sampled negative samples from the discrimination test.	
+                 ├── `roc_negative_sample_synonym_substitute_perturb.txt`
+                 ├── `roc_negative_sample_semantic_substitute_perturb.txt`
+                 ├── `roc_negative_sample_contraction_perturb.txt`
+                 ├── `roc_negative_sample_delete_punct_perturb.txt`
+                 ├── `roc_negative_sample_typos_perturb.txt`
        ├── `wp`
               └── ...
 ```
@@ -442,7 +442,7 @@ OpenEVA includes a suite of tasks to test comprehensive capabilities of metrics:
 
 - Correlation with human scores (based on MAGS)
 
-  <img src="./figure/task1.png" style="zoom: 25%;" />
+  <img src="./figure/task1.png" style="zoom: 20%;" />
 
 - Generalization across generation models and dataset (for learnable metrics, based on MAGS)
 
