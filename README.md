@@ -350,6 +350,8 @@ cd ./eva/perturb
 bash ./download.sh
 ```
 
+You can also download them by [THUCloud](https://cloud.tsinghua.edu.cn/d/1871916bd7a34ee1a436/) or [Google Drive](https://drive.google.com/drive/folders/11RaK4e_1D0s_1Nesz98eHgaDnPu_tf_2?usp=sharing).
+
 These perturbation techniques are not exhaustive, it is a starting point for further evaluation research. **We welcome any pull request for other perturbation techniques** (requiring implementation of only two methods including `__init__`, `construct`).
 
 **Note**:bookmark_tabs: We adopt [uda](https://github.com/google-research/uda) for back translation. We provide an example `eva/perturb/back_trans_data/story_bt.json` to indicate the format of the back translation result. And you can download the results for ROCStories and WritingPrompts by [THUCloud](https://cloud.tsinghua.edu.cn/d/e31fc38a29be446a9bc5/) or [Google Drive](https://drive.google.com/drive/folders/1-JkjvKDJh4-X6uAHKYnzFYXMsqhOX3ft?usp=sharing).
@@ -386,11 +388,9 @@ We create large-scale test examples based on ROC and WP by aforementioned pertur
 
 
 
-#### 3. Download
+#### 3. Download & Data Instruction
 
-
-
-#### 4. Data Instruction
+You can download the whole dataset by [THUCloud](https://cloud.tsinghua.edu.cn/d/985f728ebc7341ef9719/) or [Google Drive](https://drive.google.com/drive/folders/1zmVw2x-hKIm6Jh8phIn_Ih-PtuxMylAM?usp=sharing). 
 
 ```markdown
 ├── data
@@ -399,8 +399,12 @@ We create large-scale test examples based on ROC and WP by aforementioned pertur
        ├── `mags_wp.json`		# sampled stories and corresponding human annotation.       
    └── `acts_data`
        ├── `roc`
-              └── `roc_ipt.txt`		# input of original stories
-              └── `roc_truth.txt`	# ground truth of original stories
+              └── `roc_train_ipt.txt`	# input for training set
+              └── `roc_train_opt.txt`	# output for training set
+              └── `roc_valid_ipt.txt`	# input for validation set
+              └── `roc_valid_opt.txt`	# output for validation set
+              └── `roc_test_ipt.txt`	# input for test set
+              └── `roc_test_opt.txt`	# output for test set
               └── `discrimination_test`                        
                  ├── `roc_lexical_rept.txt`
                  ├── `roc_lexical_rept_perturb.txt`										
@@ -442,7 +446,7 @@ OpenEVA includes a suite of tasks to test comprehensive capabilities of metrics:
 
 - Correlation with human scores (based on MAGS)
 
-  <img src="./figure/task1.png" style="zoom: 20%;" />
+  <img src="./figure/task1.png" />
 
 - Generalization across generation models and dataset (for learnable metrics, based on MAGS)
 
@@ -458,22 +462,29 @@ OpenEVA includes a suite of tasks to test comprehensive capabilities of metrics:
 
   **Note:** The smaller absolute value of correlation is the better.
 
+You can test these capabilities of new metrics by following command:
+
+```bash
+cd ./benchmark
+
+# test correlation with human scores and generalization
+python ./corr_gen.py
+
+# test judgment
+python ./judge.py
+
+# test robustness
+python ./robust.py
+```
+
+We take BLEU and Forward Perplexity as examples in the python files. You can test your own metrics by minor modification.
+
 
 
 ## How to Cite
 
-A good research work is always accompanied by a thorough and faithful reference. If you use or extend our work, please cite the following paper:
-
-```
-@inproceedings{han-etal-2019-opennre,
-    title = "{O}pen{NRE}: An Open and Extensible Toolkit for Neural Relation Extraction",
-    author = "Han, Xu and Gao, Tianyu and Yao, Yuan and Ye, Deming and Liu, Zhiyuan and Sun, Maosong",
-    booktitle = "Proceedings of EMNLP-IJCNLP: System Demonstrations",
-    year = "2019",
-    url = "https://www.aclweb.org/anthology/D19-3029",
-    doi = "10.18653/v1/D19-3029",
-    pages = "169--174"
-}
 ```
 
-It's our honor to help you better explore relation extraction with our OpenNRE toolkit!
+```
+
+It's our honor to help you better explore language generation evaluation with our toolkit and benchmark.
