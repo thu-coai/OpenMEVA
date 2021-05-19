@@ -1,9 +1,9 @@
-# OpenEVA
-![](https://img.shields.io/github/last-commit/thu-coai/OpenEVA?color=blue) ![](https://img.shields.io/badge/PRs-Welcome-red) 
+# OpenMEVA
+![](https://img.shields.io/github/last-commit/thu-coai/OpenMEVA?color=blue) ![](https://img.shields.io/badge/PRs-Welcome-red) 
 
-Contributed by [Jian Guan](https://jianguanthu.github.io/), [Zhexin Zhang](https://github.com/nonstopfor)
+Contributed by [Jian Guan](https://jianguanthu.github.io/), [Zhexin Zhang](https://github.com/nonstopfor). Thank [Jiaxin Wen](https://github.com/xwwwwww) for DeBugging.
 
-OpenEVA is a benchmark for evaluating open-ended story generation (Please refer to the [Paper List](https://github.com/thu-coai/PaperForONLG) for more information about **O**pen-e**N**ded **L**anguage **G**eneration tasks). Besides, OpenEVA also provides an open-source and extensible toolkit for metric implementation, evaluation, comparison, and analysis, as well as data perturbation techniques to help generate large numbers of customized test cases. We expect the toolkit to empower fast development of automatic metrics.
+OpenMEVA is a benchmark for evaluating open-ended story generation metrics (Please refer to the [Paper List](https://github.com/thu-coai/PaperForONLG) for more information about **O**pen-e**N**ded **L**anguage **G**eneration tasks) described in the paper:  [OpenMEVA: A Benchmark for Evaluating Open-ended Story Generation Metrics]() (ACL 2021 Long Paper). Besides, OpenMEVA also provides an open-source and extensible toolkit for metric implementation, evaluation, comparison, and analysis, as well as data perturbation techniques to help generate large numbers of customized test cases. We expect the toolkit to empower fast development of automatic metrics.
 
 ### Contents
 
@@ -47,7 +47,7 @@ Since **human evaluation** is **time-consuming**, **expensive**, and **difficult
 - Referenced metrics correlate poorly with human judgments when evaluating **open-ended language generation**. Specifically, a generated sample can be reasonable if it is coherent to the given input, and self-consistent within its own context but not necessarily being similar to the reference in literal or semantics.  To address the one-to-many issue, **unreferenced metrics** (e.g., [UNION](https://www.aclweb.org/anthology/2020.emnlp-main.736/)) are proposed to measure the quality of a generated sample without any reference. 
 - Besides, some researchers propose to combine referenced and unreferenced metrics, i.e. **hybrid metrics**, which usually average two individual metric scores (e.g. [RUBER](https://arxiv.org/abs/1701.03079)) or learn from human preference (e.g., [ADEM](https://www.aclweb.org/anthology/P17-1103)). However, ADEM is reported to lack generalization and robustness with limited human annotation.
 
-The existing generation models are still far from human ability to generate reasonable texts, particularly for open-ended language generation tasks such as story generation. One important factor that hinders the research is the lack of powerful metrics for measuring generation quality. Therefore, we propose OpenEVA as the standard paradigm for measuring progress of metrics.
+The existing generation models are still far from human ability to generate reasonable texts, particularly for open-ended language generation tasks such as story generation. One important factor that hinders the research is the lack of powerful metrics for measuring generation quality. Therefore, we propose OpenMEVA as the standard paradigm for measuring progress of metrics.
 
 
 
@@ -56,7 +56,7 @@ The existing generation models are still far from human ability to generate reas
 Clone the repository from our github page (don't forget to star us!)
 
 ```bash
-git clone https://github.com/thu-coai/OpenEVA.git
+git clone https://github.com/thu-coai/OpenMEVA.git
 ```
 
 Then install all the requirements:
@@ -115,7 +115,7 @@ print(metric.info)
 print(metric.compute(data))
 ```
 
-We present a python file [test.py](https://github.com/thu-coai/OpenEVA/blob/main/test.py) as an instruction to access the API. 
+We present a python file [test.py](https://github.com/thu-coai/OpenMEVA/blob/main/test.py) as an instruction to access the API. 
 
 These metrics are not exhaustive, it is a starting point for further metric research. **We welcome any pull request for other metrics** (requiring implementation of only three methods including `__init__`, `info`, `compute`).
 
@@ -145,7 +145,7 @@ bash ./run_union.sh
 
 ### II. Evaluating Human Scores
 
-The python file [test.py](https://github.com/thu-coai/OpenEVA/blob/main/test.py) also includes detailed instruction to access the API for evaluating human scores. 
+The python file [test.py](https://github.com/thu-coai/OpenMEVA/blob/main/test.py) also includes detailed instruction to access the API for evaluating human scores. 
 
 #### 1. Constructing
 
@@ -351,7 +351,7 @@ print(method.construct(data))
 # the perturbed examples can be found under the directory "custom_name"
 ```
 
-We present a python file [test_perturb.py](https://github.com/thu-coai/OpenEVA/blob/main/test_perturb.py) as an instruction to access the API. 
+We present a python file [test_perturb.py](https://github.com/thu-coai/OpenMEVA/blob/main/test_perturb.py) as an instruction to access the API. 
 
 You can download dependent files for some perturbation techniques by executing the following command:
 
@@ -452,7 +452,7 @@ You can download the whole dataset by [THUCloud](https://cloud.tsinghua.edu.cn/d
 
 ### II. Tasks
 
-OpenEVA includes a suite of tasks to test comprehensive capabilities of metrics:
+OpenMEVA includes a suite of tasks to test comprehensive capabilities of metrics:
 
 #### 1. Correlation with human scores (based on MAGS)
 
@@ -496,7 +496,7 @@ We take BLEU and Forward Perplexity as examples in the python files. You can tes
 ## How to Cite
 
 ```
-
+To appear
 ```
 
 It's our honor to help you better explore language generation evaluation with our toolkit and benchmark.

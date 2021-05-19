@@ -7,10 +7,14 @@ import json
 import nltk
 import copy
 import pattern
+from pathlib import Path
 from nltk.corpus import wordnet as wn
 from pattern.en import tenses, wordnet, lexeme, pluralize, singularize, comparative, superlative
-from utils import nlp, get_data, get_negative_data, get_vocab, build_kg, get_sw
-from tokenizer import SimpleTokenizer
+from .utils import nlp, get_data, get_negative_data, get_vocab, build_kg, get_sw
+from ..tokenizer import SimpleTokenizer
+
+module_path = Path(__file__).parent
+
 tokenizer = SimpleTokenizer(method="space")
 def swap(l, i, j):
     ll = copy.deepcopy(l)
@@ -67,13 +71,16 @@ class perturb_class():
         self.data_name = data_name
         self.name = name
         self.id_list, self.id_dict = [], {}
+
     def load_list(self):
-        with open("%s_%s.txt"%(self.data_name, self.name), "r") as fin:
+        with open(module_path/f"{self.data_name}_{self.name}.txt", "r") as fin:
             id_list = [int(line.strip().split("|||")[0]) for line in fin]
         return id_list
 
     def output(self, origin_data):
-        with open("%s/%s_%s_perturb.txt"%("roc" if "roc" in self.data_name else "wp_all", self.data_name, self.name), "w") as fout:
+        if not (module_path/self.data_name).exists():
+            (module_path/self.data_name).mkdir()
+        with open(module_path/f"{self.data_name}/{self.data_name}_{self.name}_perturb.txt", "w") as fout:
             for id_ in self.id_list:
                 fout.write("%d|||%s|||%s|||" %(id_, origin_data[id_]["ipt"], self.id_dict[id_]["text"]))
                 fout.write(self.id_dict[id_]["type"]+"\n")
@@ -151,7 +158,7 @@ class consistency(perturb_class):
         #     print(self.add_negation(toks))
         #     print("="*10)
         self.map_neg = {}
-        with open("negation_prefix_vocab.txt", "r") as fin:
+        with open(module_path/"negation_prefix_vocab.txt", "r") as fin:
             for pww in [line.strip().split() for line in fin]:
                 for pw in [[pww[0], pww[1], pww[2]], [pww[1], pww[0], pww[2]]]:
                     w1, w2, p = pw[0], pw[1], pw[2][0].lower()
@@ -454,7 +461,7 @@ class semantic_rept(perturb_class):
     def __init__(self, data_name, nlp, ngram=4, name="semantic_rept"):
         super(semantic_rept, self).__init__(data_name, name)
         self.nlp = nlp
-        with open("back_trans_data/%s_bt.json"%data_name, "r") as fin:
+        with open(module_path/f"back_trans_data/{data_name}_bt.json", "r") as fin:
             self.map_bt = json.load(fin)
     def construct(self, origin_data):
         assert len(self.map_bt) == len(origin_data)
@@ -502,7 +509,7 @@ class semantic_substitute(perturb_class):
     def __init__(self, data_name, nlp, ngram=4, name="semantic_substitute"):
         super(semantic_substitute, self).__init__(data_name, name)
         self.nlp = nlp
-        with open("back_trans_data/%s_bt.json"%(data_name), "r") as fin:
+        with open(module_path/f"back_trans_data/{data_name}_bt.json", "r") as fin:
             self.map_bt = json.load(fin)
     def construct(self, origin_data):
         assert len(self.map_bt) == len(origin_data)
@@ -542,7 +549,7 @@ class character(perturb_class):
         self.pronoun_num = pronoun_num
 
         self.pronoun_vocab, self.mapchar = [], {}
-        with open("pronoun_vocab.txt", "r") as fin:
+        with open(module_path/"pronoun_vocab.txt", "r") as fin:
             for line in fin:
                 char = line.strip().split()
                 self.pronoun_vocab.append(char)
@@ -733,7 +740,10 @@ class commonsense(perturb_class):
         cand_list, sub = set(), []
         for kg_id in kg_id_list:
             for k in self.kg[kg_id][0]:
-                if k in self.vocab_dict and self.vocab_dict[k] > 10 and k not in self.sw:
+                if self.vocab_dict is not None: # not assigned vocab_dict
+                    if k in self.vocab_dict and self.vocab_dict[k] > 10 and k not in self.sw:
+                        cand_list.add(k)
+                else:
                     cand_list.add(k)
         cand_list = list(cand_list)
         if len(cand_list):
@@ -1182,27 +1192,28 @@ class delete_punct(perturb_class):
 # data = get_data(name)
 # vocab_dict = get_vocab(name)
 
-name = "wp_all"
-data = get_negative_data(name)
-vocab_dict = get_vocab(name)
-name = "%s_negative_sample"%name
+if __name__ == "__main__":
+    name = "wp_all"
+    data = get_negative_data(name)
+    vocab_dict = get_vocab(name)
+    name = "%s_negative_sample"%name
 
-method_list = [
-    # consistency(name, nlp=nlp),
-    # lexical_rept(name, nlp=nlp),
-    # semantic_rept(name, nlp=nlp),
-    # character(name, nlp=nlp, pronoun_num=6 if "wp" in name else 3),
-    # coherence(name, nlp=nlp),
-    # commonsense(name, nlp=nlp, sub_num=15 if "wp" in name else 3, vocab_dict=vocab_dict),
-    # cause(name, nlp=nlp),
-    # time(name, nlp=nlp),
+    method_list = [
+        # consistency(name, nlp=nlp),
+        # lexical_rept(name, nlp=nlp),
+        # semantic_rept(name, nlp=nlp),
+        # character(name, nlp=nlp, pronoun_num=6 if "wp" in name else 3),
+        # coherence(name, nlp=nlp),
+        # commonsense(name, nlp=nlp, sub_num=15 if "wp" in name else 3, vocab_dict=vocab_dict),
+        # cause(name, nlp=nlp),
+        # time(name, nlp=nlp),
 
-    # synonym_substitute(name, nlp=nlp, sub_num=5 if "wp" in name else 2),
-    semantic_substitute(name, nlp=nlp),
-    # add_typos(name),
-    # contraction(name),
-    # delete_punct(name, nlp, punct_num=5 if "wp" in name else 2),
-]
+        # synonym_substitute(name, nlp=nlp, sub_num=5 if "wp" in name else 2),
+        semantic_substitute(name, nlp=nlp),
+        # add_typos(name),
+        # contraction(name),
+        # delete_punct(name, nlp, punct_num=5 if "wp" in name else 2),
+    ]
 
-for method in method_list:
-    method.construct(data)
+    for method in method_list:
+        method.construct(data)
