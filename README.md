@@ -3,7 +3,7 @@
 
 Contributed by [Jian Guan](https://jianguanthu.github.io/), [Zhexin Zhang](https://github.com/nonstopfor). Thank [Jiaxin Wen](https://github.com/xwwwwww) for DeBugging.
 
-OpenMEVA is a benchmark for evaluating open-ended story generation metrics (Please refer to the [Paper List](https://github.com/thu-coai/PaperForONLG) for more information about **O**pen-e**N**ded **L**anguage **G**eneration tasks) described in the paper:  [OpenMEVA: A Benchmark for Evaluating Open-ended Story Generation Metrics]() (ACL 2021 Long Paper). Besides, OpenMEVA also provides an open-source and extensible toolkit for metric implementation, evaluation, comparison, and analysis, as well as data perturbation techniques to help generate large numbers of customized test cases. We expect the toolkit to empower fast development of automatic metrics.
+OpenMEVA is a benchmark for evaluating open-ended story generation metrics (Please refer to the [Paper List](https://github.com/thu-coai/PaperForONLG) for more information about **O**pen-e**N**ded **L**anguage **G**eneration tasks) described in the paper:  [OpenMEVA: A Benchmark for Evaluating Open-ended Story Generation Metrics](https://arxiv.org/abs/2105.08920) (ACL 2021 Long Paper). Besides, OpenMEVA also provides an open-source and extensible toolkit for metric implementation, evaluation, comparison, and analysis, as well as data perturbation techniques to help generate large numbers of customized test cases. We expect the toolkit to empower fast development of automatic metrics.
 
 ### Contents
 
@@ -496,7 +496,14 @@ We take BLEU and Forward Perplexity as examples in the python files. You can tes
 ## How to Cite
 
 ```
-To appear
+@misc{guan2021openmeva,
+      title={OpenMEVA: A Benchmark for Evaluating Open-ended Story Generation Metrics}, 
+      author={Jian Guan and Zhexin Zhang and Zhuoer Feng and Zitao Liu and Wenbiao Ding and Xiaoxi Mao and Changjie Fan and Minlie Huang},
+      year={2021},
+      eprint={2105.08920},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL}
+}
 ```
 
 It's our honor to help you better explore language generation evaluation with our toolkit and benchmark.
