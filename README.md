@@ -5,6 +5,8 @@ Contributed by [Jian Guan](https://jianguanthu.github.io/), [Zhexin Zhang](https
 
 OpenMEVA is a benchmark for evaluating open-ended story generation metrics (Please refer to the [Paper List](https://github.com/thu-coai/PaperForONLG) for more information about **O**pen-e**N**ded **L**anguage **G**eneration tasks) described in the paper:  [OpenMEVA: A Benchmark for Evaluating Open-ended Story Generation Metrics](https://arxiv.org/abs/2105.08920) (ACL 2021 Long Paper). Besides, OpenMEVA also provides an open-source and extensible toolkit for metric implementation, evaluation, comparison, and analysis, as well as data perturbation techniques to help generate large numbers of customized test cases. We expect the toolkit to empower fast development of automatic metrics.
 
+🚀 **NEWS: WE HAVE UPLOADED THE OPENMEVA BENCHMARK TO 🤗 [HuggingFace](https://huggingface.co/datasets/Jiann/OpenMEVA/tree/main)**.
+
 ### Contents
 
 * [Introduction to Language Generation Evaluation](#introduction-for-language-generation-evaluation)
